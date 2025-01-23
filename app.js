@@ -9,15 +9,12 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
+app.use('/geminiprompt', geminiController);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.get('/gemini', geminiController);
 
-app.get('/trasncript', (req, res) => {
-    res.send('Welcome to transcript')
-} )
 
 
 
