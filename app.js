@@ -10,13 +10,13 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use('/geminiprompt', geminiController);
+
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello Gemini!');
 });
 
-
-
-
-
+app.get("*", (req, res) => {
+    res.status(404).json({error: "Path not found"})
+});
 
 module.exports = app;
