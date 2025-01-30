@@ -9,11 +9,12 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use('/geminiprompt', geminiController);
-
 app.get('/', (req, res) => {
     res.send('Hello Gemini!');
 });
+
+app.use('/geminiprompt', geminiController);
+
 
 app.get("*", (req, res) => {
     res.status(404).json({error: "Path not found"})

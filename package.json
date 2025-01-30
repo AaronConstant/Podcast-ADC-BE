@@ -14,6 +14,7 @@
     "@google/generative-ai": "^0.21.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "elevenlabs": "^1.50.4",
     "express": "^4.21.2",
     "morgan": "^1.10.0",
     "pg-promise": "^11.10.2"
