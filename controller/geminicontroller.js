@@ -74,7 +74,7 @@ geminiprompt.post('/audio', async (req, res) => {
             voice_id:"Rachel",
             model_id: "eleven_monolingual_v1",
         }).catch(err => {
-            console.error("API call failed:", err);
+          console.error("API call failed:", err);
             throw err;
         });
 
