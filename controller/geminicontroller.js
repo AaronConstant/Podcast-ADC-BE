@@ -66,7 +66,7 @@ geminiprompt.post('/audio', async (req, res) => {
 
         console.log("Sending text to ElevenLabs:", audioPrompt);
 
-        const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM', { // Use the correct voice_id
+        const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
