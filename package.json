@@ -17,6 +17,7 @@
     "elevenlabs": "^1.50.4",
     "express": "^4.21.2",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.7.0",
     "pg-promise": "^11.10.2"
   }
 }
