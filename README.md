@@ -13,9 +13,9 @@ Welcome to the **Podcast-ADC Backend**! This repository contains the server-side
 
 The Podcast-ADC Backend is the core server component that powers the Podcast-ADC project. It handles tasks such as:
 
-- Processing requests from the frontend.
+- Processing requests from the front end.
 - Integrating with third-party APIs like Gemini and ElevenLabs.
-- Managing data flow between the frontend and external services.
+- Managing data flow between the front end and external services.
 
 ## Features
 
@@ -52,13 +52,12 @@ The backend is built using the following technologies:
 ### Gemini API
 The backend integrates with the **Gemini API** to provide advanced natural language processing capabilities. This includes:
 - Text analysis.
-- Sentiment analysis.
 - Topic extraction.
 
 ### ElevenLabs API
 The backend uses the **ElevenLabs API** for text-to-speech functionality. This allows you to:
 - Convert text into high-quality audio.
-- Customize voice settings (e.g., tone, speed).
+
 
 ## Installation
 
