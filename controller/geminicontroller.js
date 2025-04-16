@@ -4,7 +4,7 @@ const geminiprompt = express.Router();
 require('dotenv').config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fetch = require('node-fetch'); 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.GEMINI_API_KEY;
 const ELEVEN_API = process.env.ELEVEN_API;
 
 const genAI = new GoogleGenerativeAI(API_KEY);
