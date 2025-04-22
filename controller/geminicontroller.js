@@ -6,9 +6,10 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 // const fetch = require('node-fetch'); 
 const API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY)
-// const ELEVEN_API = process.env.ELEVEN_API;
 const textToSpeech = require('@google-cloud/text-to-speech');
 const ttsClient = new textToSpeech.TextToSpeechClient();
+const fs = require('fs');
+const util = require('util');
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: "You are the host of a podcast and create a formatted podcast speech with the information entered."
@@ -56,7 +57,8 @@ geminiprompt.post('/', async (req, res) => {
 });
 
 geminiprompt.post('/audio', async (req, res) => {
-    const {googleCloudTTS} = req.body
+    const { googleCloudTTS } = req.body
+    console.log(googleCloudTTS)
 
     try {
         console.log("Incoming request body: ", req.body)
@@ -71,28 +73,29 @@ geminiprompt.post('/audio', async (req, res) => {
                 languageCode: 'en-US',
                 name: 'en-US-Wavenet-F',
                 ssmlGender: 'FEMALE'
-              },
-              audioConfig: {
-                audioEncoding: 'MP3' 
-              }
-          };
+            },
+            audioConfig: {
+                audioEncoding: 'MP3'
+            }
+        };
 
-          const [response, metadata] = await ttsClient.synthesizeSpeech(request)
-          console.log(response)
+        const [response, metadata] = await ttsClient.synthesizeSpeech(request);
+        const writeFile = util.promisify(fs.writeFile);
+        await writeFile('output.mp3', response.audioContent, 'binary');
+        const file = fs.readFileSync('output.mp3')
+        console.log(response)
         //   console.dir(metadata, { depth: null }); <-- can be used to log the whole structure of the nested objects. Debugging purposes.
+        console.log(metadata);
         res.set({
             'Content-Type': 'audio/mpeg',
             'Content-Disposition': 'inline; filename="output.mp3"',
-          });
-
-        res.send(response.audioContent)
-        res.status(200).send("Success!")
-          
-
+        });
+        res.send(file)
     } catch (error) {
         console.error("Error generating audio:", error);
         res.status(500).json({ error: "Failed to generate audio." });
     }
+    // Commented code for clarification of introducing Google Cloud TTS
     // try {
     //     const audioPrompt = req.body.elevenprompt;
 
