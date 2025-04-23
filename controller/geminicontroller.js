@@ -80,9 +80,17 @@ geminiprompt.post('/audio', async (req, res) => {
         };
 
         const [response, metadata] = await ttsClient.synthesizeSpeech(request);
+        // Notes for later about Saving by creating files to store them. //
+
+        // This allows you to use await writeFile(...) instead of the older callback-style.
         // const writeFile = util.promisify(fs.writeFile);
+
+        // This saves the audio content returned by Google Cloud TTS to a file named output.mp3.
         // await writeFile('output.mp3', response.audioContent, 'binary');
+
+        // This reads the file back into memory so it can be sent in a response with res.send(file)
         // const file = fs.readFileSync('output.mp3')
+
         console.log(response);
         //   console.dir(metadata, { depth: null }); <-- can be used to log the whole structure of the nested objects. Debugging purposes.
         console.log(metadata);
