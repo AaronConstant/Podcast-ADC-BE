@@ -21,7 +21,7 @@ The Podcast-ADC Backend is the core server component that powers the Podcast-ADC
 
 - **API Integration**:
   - **Gemini**: For natural language processing and advanced text analysis.
-  - **ElevenLabs**: For high-quality text-to-speech conversion.
+  - **Google Cloud TTS**: For high-quality text-to-speech conversion.
 - **RESTful API**: Built with Express to handle HTTP requests and responses.
 - **CORS Support**: Enabled for seamless communication between the frontend and backend.
 - **Modular Codebase**: Organized and easy-to-extend architecture.
@@ -54,8 +54,8 @@ The backend integrates with the **Gemini API** to provide advanced natural langu
 - Text analysis.
 - Topic extraction.
 
-### ElevenLabs API
-The backend uses the **ElevenLabs API** for text-to-speech functionality. This allows you to:
+### Google Cloud TTS
+The backend uses the **Google Cloud TTS** for text-to-speech functionality. This allows you to:
 - Convert text into high-quality audio.
 
 
