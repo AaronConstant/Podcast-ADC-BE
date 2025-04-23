@@ -58,7 +58,7 @@ geminiprompt.post('/', async (req, res) => {
 
 geminiprompt.post('/audio', async (req, res) => {
     const { googleCloudTTS } = req.body
-    console.log(googleCloudTTS)
+    console.log("BE-Line 61 TTS prompt: ",googleCloudTTS)
 
     try {
         console.log("Incoming request body: ", req.body)
@@ -80,17 +80,19 @@ geminiprompt.post('/audio', async (req, res) => {
         };
 
         const [response, metadata] = await ttsClient.synthesizeSpeech(request);
-        const writeFile = util.promisify(fs.writeFile);
-        await writeFile('output.mp3', response.audioContent, 'binary');
-        const file = fs.readFileSync('output.mp3')
-        console.log(response)
+        // const writeFile = util.promisify(fs.writeFile);
+        // await writeFile('output.mp3', response.audioContent, 'binary');
+        // const file = fs.readFileSync('output.mp3')
+        console.log(response);
         //   console.dir(metadata, { depth: null }); <-- can be used to log the whole structure of the nested objects. Debugging purposes.
         console.log(metadata);
         res.set({
             'Content-Type': 'audio/mpeg',
             'Content-Disposition': 'inline; filename="output.mp3"',
         });
-        res.send(file)
+
+        res.status(200).send(response.audioContent);
+        console.log("Audio sent successfully.");
     } catch (error) {
         console.error("Error generating audio:", error);
         res.status(500).json({ error: "Failed to generate audio." });
