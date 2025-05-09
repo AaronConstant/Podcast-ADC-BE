@@ -8,6 +8,8 @@ const API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY)
 const textToSpeech = require('@google-cloud/text-to-speech');
 const ttsClient = new textToSpeech.TextToSpeechClient();
+console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
 // const fs = require('fs');
 // const util = require('util');
 const model = genAI.getGenerativeModel({
@@ -62,6 +64,8 @@ geminiprompt.post('/audio', async (req, res) => {
     try {
         // console.log("Incoming request body: ", req.body)
         console.log("BE-Line 61 TTS prompt: ",googleCloudTTS)
+        console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
 
         if (!googleCloudTTS || typeof googleCloudTTS !== 'string') {
             return res.status(400).json({ error: "Missing or invalid text input for TTS." });
@@ -92,6 +96,8 @@ geminiprompt.post('/audio', async (req, res) => {
         res.status(200).send(response.audioContent);
         console.log("Audio sent successfully.");
     } catch (error) {
+        console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
         console.error("Error generating audio:", error);
         res.status(500).json({ error: "Failed to generate audio." });
     } // Notes for later about Saving by creating files to store them. //
