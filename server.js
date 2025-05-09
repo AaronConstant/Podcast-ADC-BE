@@ -10,4 +10,6 @@ app.listen(PORT, (err) => {
         process.exit(1);
     }
     console.log(`Server is running on port ${PORT}`);
+    console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
 });
