@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS users_karioki;
+DROP DATABASE IF EXISTS chit_chat_app;
 
-CREATE DATABASE users_karioki;
+CREATE DATABASE chit_chat_app;
 
-\c users_karioki
+\c chit_chat_app;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
