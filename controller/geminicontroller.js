@@ -16,7 +16,7 @@ const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: "You are the host of a podcast and create a formatted podcast speech with the information entered."
 });
-
+// !! You will need to merge the controllers users and gemini using merge params because users can have multiple podcasts entries.
 geminiprompt.use(express.json());
 geminiprompt.use(cors());
 geminiprompt.use(cors({
