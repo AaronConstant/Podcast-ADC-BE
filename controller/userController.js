@@ -7,8 +7,8 @@ userController.use(express.json());
 userController.use(cors());
 
 userController.get('/user', async (req, res) => {
-    const { userId, name, email } = req.body;
     
+
 
 
 
