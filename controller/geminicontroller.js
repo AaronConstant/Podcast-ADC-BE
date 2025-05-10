@@ -19,6 +19,9 @@ const model = genAI.getGenerativeModel({
 
 geminiprompt.use(express.json());
 geminiprompt.use(cors());
+geminiprompt.use(cors({
+    origin: 'https://chitchatpodcast.netlify.app',
+  }));
 
 geminiprompt.post('/', async (req, res) => {
     try {
