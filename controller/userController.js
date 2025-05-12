@@ -1,7 +1,6 @@
 const express = require('express');
 const userController = express.Router();
 const cors = require('cors');
-const { user } = require('elevenlabs/api');
 // validations
 // import { validateUser } from '../validations/userValidation';
 
@@ -10,16 +9,15 @@ userController.use(express.json());
 userController.use(cors());
 
 // routes
-userController.get('/user',async (req, res) => {
+userController.get('/',async (req, res) => {
     
+})
 
-
-
-
-
+userController.get('/:id', async (req, res) => {
 })
 
 
+module.exports = userController;
 
 
 

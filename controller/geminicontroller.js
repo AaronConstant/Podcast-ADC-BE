@@ -19,9 +19,9 @@ const model = genAI.getGenerativeModel({
 // !! You will need to merge the controllers users and gemini using merge params because users can have multiple podcasts entries.
 geminiprompt.use(express.json());
 geminiprompt.use(cors());
-geminiprompt.use(cors({
-    origin: 'https://chitchatpodcast.netlify.app',
-  }));
+// geminiprompt.use(cors({
+//     origin: 'https://chitchatpodcast.netlify.app',
+//   }));
 
 geminiprompt.post('/', async (req, res) => {
     try {
