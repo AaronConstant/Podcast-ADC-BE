@@ -3,6 +3,7 @@ const validateUser = (req, res, next) => {
     const errors = new Map();
     // Come back to this later and apply  DRY for the fieldchecks.
 
+    // Regular expressions for validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^(\(\d{3}\)\s?|\d{3}[-\s]?)\d{3}[-\s]?\d{4}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;

@@ -4,7 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const geminiController = require('./controller/geminicontroller.js');
-const userController = require('./controller/userController.js');
+const userController = require('./controller/usersController.js');
 
 app.use(express.json());
 app.use(cors());
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/geminiprompt', geminiController);
-app.use('/user', userController);
+app.use('/users', userController);
 
 
 app.get("*", (req, res) => {

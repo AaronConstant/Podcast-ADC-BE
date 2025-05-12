@@ -23,6 +23,12 @@ const getUserById = async (id) => {
 }
 
 const createUser = async (userData) => {
+    if (!userData) {
+        return `Error: User data is required for creation.`;
+    }
+    if (!userData.first_name || !userData.last_name || !userData.username || !userData.password || !userData.email || !userData.phone_number || !userData.date_of_birth) {
+        return `Error: All fields are required.`;
+    }
     
 
     try {
