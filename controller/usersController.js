@@ -41,9 +41,15 @@ userController.get('/:id', async (req, res) => {
     }
 })
 
-userController.post('/', (req,res)=>{
+userController.post('/', async (req,res)=>{
     if(!req.body) {
-        return res.status(400).json({error:"Missing"})
+        return res.status(400).json({error:"Unable to process information!"})
+    }
+    try{
+        const addUser = await createUser(req.body)
+    } catch(error){
+        console.error(`Line-51 Received an Erorr: `,error )
+        return res.status(400).json({error:"Unable to process Information Line 52!"})
     }
 })
 

@@ -19,7 +19,7 @@ app.use('/users', userController);
 
 
 app.get("*", (req, res) => {
-    res.status(404).json({error: "Path not found"})
+    res.status(404).json({error:'Path not Found'})
 });
 
 module.exports = app;

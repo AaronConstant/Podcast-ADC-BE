@@ -1,4 +1,6 @@
 const {db} = require('../db/dbConfig');
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const getAllUsers = async () => {
     try {
@@ -32,13 +34,15 @@ const createUser = async (userData) => {
     
 
     try {
+        const hashedPassword = await bcrypt.hash(userData.password, saltRounds)
+
         const newUser = await db.one(
             'INSERT INTO users (first_name, last_name, username, password, email, phone_number, sex_at_birth, gender_identity, date_of_birth) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
             [
                 userData.first_name, 
                 userData.last_name, 
                 userData.username, 
-                userData.password, 
+                hashedPassword, 
                 userData.email, 
                 userData.phone_number,
                 userData.sex_at_birth,
