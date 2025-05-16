@@ -12,17 +12,15 @@ const getAllUsers = async () => {
 }
 const getUserById = async (id) => {
     if (!id) {
-        return `Error: ID is required for user lookup.`;
+        throw new Error("ID is required for user lookup.");
     }
-    try{
-        const userById = await db.one("SELECT * FROM users WHERE id=$1", id);
+    try {
+        const userById = await db.one("SELECT * FROM users WHERE id=$1", [id]);
         return userById;
     } catch (error) {
-        return `Error fetching user by ID ${id}: ${error}`;
-    } finally {
-        res.status(500).json({ error: "Failed to fetch user." });
+        throw new Error(`Error fetching user by ID ${id}: ${error.message}`);
     }
-}
+};
 
 const createUser = async (userData) => {
     if (!userData) {
@@ -31,23 +29,33 @@ const createUser = async (userData) => {
     if (!userData.first_name || !userData.last_name || !userData.username || !userData.password || !userData.email || !userData.phone_number || !userData.date_of_birth) {
         return `Error: All fields are required.`;
     }
-    
 
     try {
         const hashedPassword = await bcrypt.hash(userData.password, saltRounds)
 
         const newUser = await db.one(
-            'INSERT INTO users (first_name, last_name, username, password, email, phone_number, sex_at_birth, gender_identity, date_of_birth) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+            `INSERT INTO users (
+            first_name, 
+            last_name, 
+            username, 
+            password, 
+            email, 
+            phone_number, 
+            sex_at_birth, 
+            gender_identity, 
+            date_of_birth
+            ) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
             [
-                userData.first_name, 
-                userData.last_name, 
-                userData.username, 
-                hashedPassword, 
-                userData.email, 
-                userData.phone_number,
-                userData.sex_at_birth,
-                userData.gender_identity,
-                userData.date_of_birth
+               userData.first_name,
+               userData.last_name,
+               userData.username,
+               hashedPassword,
+               userData.email,
+               userData.phone_number,
+               userData.sex_at_birth,
+               userData.gender_identity,
+               userData.date_of_birth
             ]
         );
         return newUser;
@@ -60,7 +68,17 @@ const createUser = async (userData) => {
 const updateUser = async (id, userData) => {
     try {
         const updatingUser = await db.one(
-            'UPDATE users SET first_name=$1, last_name=$2, username=$3, password=$4, email=$5, phone_number=$6,sex_at_birth=$7, gender_identity=$8, date_of_birth=$9 WHERE id=$10 RETURNING *',
+            `UPDATE users SET 
+            first_name=$1, 
+            last_name=$2, 
+            username=$3, 
+            password=$4,
+            email=$5, 
+            phone_number=$6,
+            sex_at_birth=$7, 
+            gender_identity=$8, 
+            date_of_birth=$9 
+            WHERE id=$10 RETURNING *`,
             [
                 userData.first_name, 
                 userData.last_name, 
@@ -96,4 +114,10 @@ const deleteUser = async (id) => {
 
 
 
-module.exports = {getAllUsers, getUserById, createUser , updateUser, deleteUser};
+module.exports = {
+    getAllUsers, 
+    getUserById, 
+    createUser , 
+    updateUser, 
+    deleteUser
+};

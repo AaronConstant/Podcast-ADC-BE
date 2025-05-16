@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 
-const geminiController = require('./controller/geminicontroller.js');
+const podcastEntryController = require('./controller/podcastEntryController.js');
 const userController = require('./controller/usersController.js');
 
 app.use(express.json());
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     res.send('Hello Gemini!');
 });
 
-app.use('/geminiprompt', geminiController);
+app.use('/users/:user_id/podcastentries', podcastEntryController);
 app.use('/users', userController);
 
 

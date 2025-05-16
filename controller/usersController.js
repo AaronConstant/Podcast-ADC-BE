@@ -27,32 +27,57 @@ userController.get('/',async (req, res) => {
 })
 
 userController.get('/:id', async (req, res) => {
-    const {id} = req.params;
-    try{
-        const userById = getUserById(id)
-        if(!userById) {
-            return res.status(400).json({error: `No user found with ID: ${id}, Please try again!`})
+    const { id } = req.params;
+    try {
+        const userById = await getUserById(id);
+
+        if (!userById || userById.length === 0) {
+            return res.status(404).json({ error: `No user found with ID: ${id}.` });
         }
-        return res.status(200).json({})
 
+        return res.status(200).json(userById);
     } catch (error) {
-        console.error(`Received an error: ${error}`)
-        res.status(500).json({error: "Recieved an error retrieving User by that ID"})
+        console.error(`Received an error: ${error}`);
+        res.status(500).json({ error: "Error retrieving user by ID" });
     }
-})
+});
 
-userController.post('/', async (req,res)=>{
-    if(!req.body) {
-        return res.status(400).json({error:"Unable to process information!"})
+userController.post('/', async (req, res) => {
+    try {
+        const addingUser = await createUser(req.body);
+        return res.status(201).json(addingUser); 
+    } catch (error) {
+        console.error("Line-51 Received an Error: ", error);
+        return res.status(500).json({ error: "Unable to process information!" });
     }
+});
+
+userController.put('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: "Missing user ID in request!" });
+    }
+
+    try {
+        const updatedUser = await updateUser(id, req.body);
+        return res.status(200).json(updatedUser);
+    } catch (error) { 
+        console.error("Update error:", error);
+        return res.status(500).json({ error: `Error updating user: ${error.message}` });
+    }
+});
+
+userController.delete('/:id', async (req,res) => {
+    const { id } = req.params
+
     try{
-        const addUser = await createUser(req.body)
-    } catch(error){
-        console.error(`Line-51 Received an Erorr: `,error )
-        return res.status(400).json({error:"Unable to process Information Line 52!"})
+        const removingUser =  await deleteUser(id)
+        return res.status(200).json(removingUser)
+    }catch(error){
+        res.status(500).json({error: "error deleting User!"})
     }
 })
-
 
 module.exports = userController;
 
