@@ -121,7 +121,6 @@ podcastEntryController.post('/audio', async (req, res) => {
     try {
         // console.log("Incoming request body: ", req.body)
         console.log("BE-Line 61 TTS prompt: ",googleCloudTTS)
-        console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 
         if (!googleCloudTTS || typeof googleCloudTTS !== 'string') {

@@ -1,10 +1,12 @@
 DROP DATABASE IF EXISTS chit_chat_app;
 CREATE DATABASE chit_chat_app;
+-- const {v4 : uuidv4} = require('uuid')
+
 
 \c chit_chat_app;
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -18,11 +20,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE podcast_entries (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL,
     description TEXT,
     audio_url VARCHAR(255) NOT NULL,
-    user_id INTEGER NOT NULL,
+    user_id UUID NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

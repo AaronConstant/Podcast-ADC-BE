@@ -1,7 +1,13 @@
 const express = require('express');
 const userController = express.Router();
 const cors = require('cors');
-const { getAllUsers,getUserById, createUser, updateUser, deleteUser } = require('../queries/usersQueries');
+const { 
+    getAllUsers,
+    getUserById, 
+    createUser, 
+    updateUser, 
+    deleteUser 
+} = require('../queries/usersQueries');
 // validations
 // import { validateUser } from '../validations/userValidation';
 

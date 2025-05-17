@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
+const logInRequest =  require('./validations/logRequests.js');
+const loginController = require('./controller/loginController.js')
 
 const podcastEntryController = require('./controller/podcastEntryController.js');
 const userController = require('./controller/usersController.js');
@@ -13,9 +15,9 @@ app.use(morgan('dev'));
 app.get('/', (req, res) => {
     res.send('Hello Gemini!');
 });
-
+app.use('/signin', loginController)
 app.use('/users/:user_id/podcastentries', podcastEntryController);
-app.use('/users', userController);
+app.use('/users',logInRequest, userController);
 
 
 app.get("*", (req, res) => {
