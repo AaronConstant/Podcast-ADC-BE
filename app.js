@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 app.use('/signin', loginController)
 app.use('/users/:user_id/podcastentries', podcastEntryController);
 app.use('/users',logInRequest, userController);
-
+// create an additional route for the dashboard after authentication and ensuring that only user information is persisting throughout the session. 
 
 app.get("*", (req, res) => {
     res.status(404).json({error:'Path not Found'})
