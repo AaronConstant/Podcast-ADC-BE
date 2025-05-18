@@ -2,14 +2,14 @@ const express = require('express');
 const userController = express.Router();
 const cors = require('cors');
 const { 
-    getAllUsers,
+    // getAllUsers,
     getUserById, 
     createUser, 
     updateUser, 
     deleteUser 
 } = require('../queries/usersQueries');
 const {AuthenticateToken} = require('../validations/logRequests')
-
+const jwt = require('jsonwebtoken');
 // validations
 // import { validateUser } from '../validations/userValidation';
 
@@ -18,21 +18,22 @@ userController.use(express.json());
 userController.use(cors());
 
 // routes
-userController.get('/',async (req, res) => {
-    try {
-        const allCurrentUsers = await getAllUsers()
-        console.log("All Current Users:", allCurrentUsers);
-        if (allCurrentUsers.length === 0) {
-            return res.status(404).json({ message: "No users found." });
-        }
-        res.status(200).json(allCurrentUsers);
+// Testing purposes
+// userController.get('/',async (req, res) => {
+//     try {
+//         const allCurrentUsers = await getAllUsers()
+//         console.log("All Current Users:", allCurrentUsers);
+//         if (allCurrentUsers.length === 0) {
+//             return res.status(404).json({ message: "No users found." });
+//         }
+//         res.status(200).json(allCurrentUsers);
 
-    }catch(error) {
-        console.error("Error fetching all users:", error);
-        res.status(500).json({ error: "Failed to fetch all users." });
-    }
+//     }catch(error) {
+//         console.error("Error fetching all users:", error);
+//         res.status(500).json({ error: "Failed to fetch all users." });
+//     }
     
-})
+// })
 
 userController.get('/:id',AuthenticateToken, async (req, res) => {
     const { id } = req.params;
@@ -56,8 +57,24 @@ userController.get('/:id',AuthenticateToken, async (req, res) => {
 userController.post('/', async (req, res) => {
     try {
         const addingUser = await createUser(req.body);
-        return res.status(201).json(addingUser); 
-    } catch (error) {
+    
+        const token = jwt.sign(
+          { id: addingUser.id },
+          process.env.JWT_SECRET,
+          { expiresIn: "30m" }
+        );
+    
+        return res.status(201).json({
+          message: "User created successfully",
+          token,
+          user: {
+            id: addingUser.id,
+            username: addingUser.username,
+            email: addingUser.email,
+          }
+        });
+        
+      }catch (error) {
         console.error("Line-51 Received an Error: ", error);
         return res.status(500).json({ error: "Unable to process information!" });
     }

@@ -16,6 +16,7 @@ const {
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(API_KEY)
 const textToSpeech = require('@google-cloud/text-to-speech');
+const { AuthenticateToken } = require('../validations/logRequests');
 const ttsClient = new textToSpeech.TextToSpeechClient();
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
@@ -24,6 +25,7 @@ const model = genAI.getGenerativeModel({
 
 podcastEntryController.use(express.json());
 podcastEntryController.use(cors());
+podcastEntryController.use(AuthenticateToken)
 
 podcastEntryController.get('/', async (req, res) => {
     const { user_id } = req.params;
