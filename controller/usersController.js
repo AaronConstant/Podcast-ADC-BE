@@ -8,6 +8,8 @@ const {
     updateUser, 
     deleteUser 
 } = require('../queries/usersQueries');
+const {AuthenticateToken} = require('../validations/logRequests')
+
 // validations
 // import { validateUser } from '../validations/userValidation';
 
@@ -32,9 +34,12 @@ userController.get('/',async (req, res) => {
     
 })
 
-userController.get('/:id', async (req, res) => {
+userController.get('/:id',AuthenticateToken, async (req, res) => {
     const { id } = req.params;
     try {
+        if (req.user.id !== id) {
+            return res.status(403).json({ error: "Unauthorized" });
+          }
         const userById = await getUserById(id);
 
         if (!userById || userById.length === 0) {
@@ -58,12 +63,16 @@ userController.post('/', async (req, res) => {
     }
 });
 
-userController.put('/:id', async (req, res) => {
+userController.put('/:id',AuthenticateToken, async (req, res) => {
     const { id } = req.params;
 
     if (!id) {
         return res.status(400).json({ error: "Missing user ID in request!" });
     }
+    if (req.user.id !== id) {
+        return res.status(403).json({ error: "Unauthorized" });
+      }
+
 
     try {
         const updatedUser = await updateUser(id, req.body);
