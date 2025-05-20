@@ -25,9 +25,8 @@ const model = genAI.getGenerativeModel({
 
 podcastEntryController.use(express.json());
 podcastEntryController.use(cors());
-podcastEntryController.use(AuthenticateToken)
 
-podcastEntryController.get('/', async (req, res) => {
+podcastEntryController.get('/',AuthenticateToken, async (req, res) => {
     const { user_id } = req.params;
     try {
         const entries = await getAllEntries(user_id);
@@ -37,7 +36,7 @@ podcastEntryController.get('/', async (req, res) => {
     }
 });
 
-podcastEntryController.get('/:id', async (req, res) => {
+podcastEntryController.get('/:id',AuthenticateToken, async (req, res) => {
     const { id, user_id } = req.params;
     try {
         const entry = await getSpecificEntry(id, user_id);

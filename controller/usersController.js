@@ -2,7 +2,7 @@ const express = require('express');
 const userController = express.Router();
 const cors = require('cors');
 const { 
-    // getAllUsers,
+    getAllUsers,
     getUserById, 
     createUser, 
     updateUser, 
@@ -10,6 +10,7 @@ const {
 } = require('../queries/usersQueries');
 const {AuthenticateToken} = require('../validations/logRequests')
 const jwt = require('jsonwebtoken');
+
 // validations
 // import { validateUser } from '../validations/userValidation';
 
@@ -19,30 +20,30 @@ userController.use(cors());
 
 // routes
 // Testing purposes
-// userController.get('/',async (req, res) => {
-//     try {
-//         const allCurrentUsers = await getAllUsers()
-//         console.log("All Current Users:", allCurrentUsers);
-//         if (allCurrentUsers.length === 0) {
-//             return res.status(404).json({ message: "No users found." });
-//         }
-//         res.status(200).json(allCurrentUsers);
+userController.get('/',async (req, res) => {
+    try {
+        const allCurrentUsers = await getAllUsers()
+        if (allCurrentUsers.length === 0) {
+            return res.status(404).json({ message: "No users found." });
+        }
+        res.status(200).json(allCurrentUsers);
 
-//     }catch(error) {
-//         console.error("Error fetching all users:", error);
-//         res.status(500).json({ error: "Failed to fetch all users." });
-//     }
+    }catch(error) {
+        console.error("Error fetching all users:", error);
+        res.status(500).json({ error: "Failed to fetch all users." });
+    }
     
-// })
+})
 
-userController.get('/:id',AuthenticateToken, async (req, res) => {
+userController.get('/:id', AuthenticateToken, async (req, res) => {
     const { id } = req.params;
     try {
+        console.log('What is this: ',req.user.id);
         if (req.user.id !== id) {
-            return res.status(403).json({ error: "Unauthorized" });
+            return res.status(403).json({ error: "Unauthorized User" });
           }
         const userById = await getUserById(id);
-
+          console.log(userById)
         if (!userById || userById.length === 0) {
             return res.status(404).json({ error: `No user found with ID: ${id}.` });
         }
@@ -87,7 +88,7 @@ userController.put('/:id',AuthenticateToken, async (req, res) => {
         return res.status(400).json({ error: "Missing user ID in request!" });
     }
     if (req.user.id !== id) {
-        return res.status(403).json({ error: "Unauthorized" });
+        return res.status(403).json({ error: "Unauthorized Userrr" });
       }
 
 
@@ -100,7 +101,7 @@ userController.put('/:id',AuthenticateToken, async (req, res) => {
     }
 });
 
-userController.delete('/:id', async (req,res) => {
+userController.delete('/:id',AuthenticateToken, async (req,res) => {
     const { id } = req.params
 
     try{

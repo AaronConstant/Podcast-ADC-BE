@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     res.send('Hello Gemini!');
 });
 app.use('/login', loginController)
-app.use('/users/:user_id/podcastentries',AuthenticateToken, podcastEntryController);
+app.use('/users/:user_id/podcastentries',AuthenticateToken,podcastEntryController);
 app.use('/users', userController);
 // app.use('/users/:id/dashboard',AuthenticateToken, userDashBoard);
 // create an additional route for the dashboard after authentication and ensuring that only user information is persisting throughout the session.
