@@ -1,6 +1,6 @@
 # Podcast-ADC Backend
 
-Welcome to the **Podcast-ADC Backend**! This repository contains the server-side logic for the Podcast-ADC project, built with **Node.js** and **Express**. It integrates with **Gemini** and **ElevenLabs APIs** to provide advanced features like natural language processing and text-to-speech capabilities.
+Welcome to the **Podcast-ADC Backend**! This repository contains the server-side logic for the Podcast-ADC project, built with **Node.js** and **Express**. It integrates with **Gemini** and **Google TTS APIs** to provide advanced features like natural language processing and text-to-speech capabilities.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
