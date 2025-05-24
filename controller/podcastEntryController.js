@@ -1,9 +1,10 @@
+// Setting Environment
 const express = require('express');
 const cors = require('cors');
 const podcastEntryController = express.Router({mergeParams: true});
 require('dotenv').config();
 const API_KEY = process.env.GEMINI_API_KEY;
-
+// Queries and Token
 const {
     getAllEntries,
     getSpecificEntry,
@@ -11,12 +12,12 @@ const {
     updateEntry,
     deleteEntry
 } = require('../queries/podcastEntriesQueries')
+const { AuthenticateToken } = require('../validations/logRequests');
 
 // * Gemini content Creation variables
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(API_KEY)
 const textToSpeech = require('@google-cloud/text-to-speech');
-const { AuthenticateToken } = require('../validations/logRequests');
 const ttsClient = new textToSpeech.TextToSpeechClient();
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
@@ -78,10 +79,10 @@ podcastEntryController.delete('/:id', async (req, res) => {
     }
 });
 
-podcastEntryController.post('/script', async (req, res) => {
+podcastEntryController.post('/script',AuthenticateToken, async (req, res) => {
     try {
-        const prompt = req.body.podcastEntry;
-
+        const prompt = req.body.podcastentry;
+        
         const structuredPrompt = `
             ${prompt}
             Format the output as a JSON object with the following structure:
@@ -93,6 +94,8 @@ podcastEntryController.post('/script', async (req, res) => {
             }
             Return only the JSON object without any additional text or markdown formatting.
         `;
+        console.log("Line 97--Before customization:", structuredPrompt);
+        
 
         const result = await model.generateContent(structuredPrompt);
         const textResponse = result.response.text();

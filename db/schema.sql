@@ -1,6 +1,8 @@
 DROP DATABASE IF EXISTS chit_chat_app;
 CREATE DATABASE chit_chat_app;
--- const {v4 : uuidv4} = require('uuid')
+
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 
 \c chit_chat_app;
@@ -12,9 +14,9 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone_number VARCHAR(15) NOT NULL UNIQUE,
-    sex_at_birth VARCHAR(50) DEFAULT 'Prefer not to say',
-    gender_identity VARCHAR(100) DEFAULT 'Prefer not to say',
+    phone_number VARCHAR(15),
+    sex_at_birth VARCHAR(50),
+    gender_identity VARCHAR(100),
     date_of_birth DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

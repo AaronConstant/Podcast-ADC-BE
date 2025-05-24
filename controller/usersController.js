@@ -19,7 +19,7 @@ userController.use(express.json());
 userController.use(cors());
 
 // routes
-// Testing purposes
+// ! Testing purposes remove later
 userController.get('/',async (req, res) => {
     try {
         const allCurrentUsers = await getAllUsers()
