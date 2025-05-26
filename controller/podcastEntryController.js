@@ -76,7 +76,7 @@ podcastEntryController.delete('/:id', async (req, res) => {
     const { id, user_id } = req.params;
     try {
         const deleted = await deleteEntry(id, user_id);
-        res.status(200).json(deleted);
+        res.status(200).json({message:"SUccessfully deleted Podcast!",deleted});
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -127,7 +127,6 @@ podcastEntryController.post('/audio', async (req, res) => {
     const { googleCloudTTS } = req.body
     
     try {
-        // console.log("Incoming request body: ", req.body)
         console.log("BE-Line 131 TTS prompt: ",googleCloudTTS)
 
 
@@ -166,5 +165,8 @@ podcastEntryController.post('/audio', async (req, res) => {
         res.status(500).json({ error: "Failed to generate audio." });
     } 
 });
+podcastEntryController.post('/save', async (req,res)=>{
+
+})
 
 module.exports = podcastEntryController;
