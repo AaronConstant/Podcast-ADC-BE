@@ -7,7 +7,7 @@ INSERT INTO users (
     ('8ca0fd8D-fd03-438c-8330-c6c4e7ef4aa9','John', 'Doe', 'johndoe', '$2b$10$H97GWe.izW3DSfFeKvhHNOB70eIqjs/.694M0v7hry7.HLXdYHumu', 'johndoe@example.com', '123-456-7890', 'Male', 'Man', '1990-05-15'),
     ('8ca0DD8D-fd03-438c-8330-c6c4e7ef4aa9','Jane', 'Doe', 'janedoe', '$2b$10$9SAkIM76nVMsXCzItK0riuYl8vjytCJvw0yunH73Cn.tjrt4DlE7.', 'janedoe@example.com', '646-123-3224', 'Female', 'Woman', '1988-11-23'),
     ('8ca0fd8D-fd33-438c-8330-c6c4e7ef4aa9','Bobby', 'Slither', 'bobbyslithers', '$2b$10$DFPZwxEHcVKgHqtK6MyJGOFMdTTB/p3IUDXXtBLAYmtniHJuPl3Zu', 'bobby99@example.com', '902-412-5213', 'Male', 'Non-binary', '1999-02-02'),
-    ('8ca0fd8D-fd03-438c-8200-c6c4e7ef4aa9','Alice', 'White', 'alice_w', '$2b$10$gWkrtuO2YKElkbIrl0WqfeoyqgsWZQWegWwYhXmHwyq.zUcgnFMey', 'alicew@example.com', '678-665-3423', 'Female', 'Woman', '1995-07-10'),
+    ('8ca0fd8D-fd03-438c-8200-c6c4e7ef4aa9','Alice', 'White', 'alice_w', '$2b$10$pMyPZBB2KwLf.C9wH5x3/u2OoQrCNdRLBliwVIPo1GUwvz5KO/OKG', 'alicew@example.com', '678-665-3423', 'Female', 'Woman', '1995-07-10'),
     ('8ca0fd8D-fd03-438c-8330-c64Ce7ef4aa9','Mike', 'Franks', 'mike88', '$2b$10$5Oy1sMJqtNMXVnoBR.ZxQuzb/IQtoUoWvCy7XPz5ciuMi9.Xbtozu', 'mike88@example.com', '796-322-4142', 'Male', 'Man', '1985-12-30');
 
 

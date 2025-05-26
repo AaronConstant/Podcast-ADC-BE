@@ -23,10 +23,11 @@ const getUserById = async (id) => {
 };
 
 const createUser = async (userData) => {
+    console.log("Line-26 userController",userData)
     if (!userData) {
         return `Error: User data is required for creation.`;
     }
-    if (!userData.first_name || !userData.last_name || !userData.username || !userData.password || !userData.email || !userData.phone_number || !userData.date_of_birth) {
+    if (!userData.first_name || !userData.last_name || !userData.username || !userData.password || !userData.email) {
         return `Error: All fields are required.`;
     }
 
@@ -39,29 +40,30 @@ const createUser = async (userData) => {
             last_name, 
             username, 
             password, 
-            email, 
-            phone_number, 
-            sex_at_birth, 
-            gender_identity, 
-            date_of_birth
+            email
             ) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+            VALUES ($1, $2, $3, $4, $5) RETURNING *`,
             [
                userData.first_name,
                userData.last_name,
                userData.username,
                hashedPassword,
                userData.email,
-               userData.phone_number,
-               userData.sex_at_birth,
-               userData.gender_identity,
-               userData.date_of_birth
             ]
         );
         return newUser;
 
 } catch (error) {
-        return `Error creating user: ${error}`;
+        console.error('Database error in createUser:', error);
+        
+        if (error.code === '23505') { 
+            if (error.constraint === 'users_username_key') {
+                throw new Error('Username already exists');
+            } else if (error.constraint === 'users_email_key') {
+                throw new Error('Email already exists');
+            }
+        }
+            throw error;
     }
 }
 

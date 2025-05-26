@@ -14,10 +14,10 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone_number VARCHAR(15),
-    sex_at_birth VARCHAR(50),
-    gender_identity VARCHAR(100),
-    date_of_birth DATE,
+    phone_number VARCHAR(15) DEFAULT NULL,
+    sex_at_birth VARCHAR(50) DEFAULT NULL,
+    gender_identity VARCHAR(100) DEFAULT NULL,
+    date_of_birth DATE DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

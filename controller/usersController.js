@@ -58,7 +58,7 @@ userController.get('/:id', AuthenticateToken, async (req, res) => {
 userController.post('/', async (req, res) => {
     try {
         const addingUser = await createUser(req.body);
-    
+        
         const token = jwt.sign(
           { id: addingUser.id },
           process.env.JWT_SECRET,
@@ -76,7 +76,16 @@ userController.post('/', async (req, res) => {
         });
         
       }catch (error) {
-        console.error("Line-51 Received an Error: ", error);
+        console.error("User creation error:", error);
+        
+        if (error.message.includes('Missing required fields') || 
+            error.message.includes('User data is required')) {
+            return res.status(400).json({ error: error.message });
+        }
+        
+        if (error.message.includes('already exists')) {
+            return res.status(409).json({ error: error.message });
+        }        
         return res.status(500).json({ error: "Unable to process information!" });
     }
 });
