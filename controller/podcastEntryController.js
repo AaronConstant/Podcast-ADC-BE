@@ -1,10 +1,11 @@
-// Setting Environment
+// * Setting Environment
 const express = require('express');
 const cors = require('cors');
 const podcastEntryController = express.Router({mergeParams: true});
 require('dotenv').config();
 const API_KEY = process.env.GEMINI_API_KEY;
-// Queries and Token
+
+// * Queries and Token
 const {
     getAllEntries,
     getSpecificEntry,
@@ -12,7 +13,7 @@ const {
     updateEntry,
     deleteEntry
 } = require('../queries/podcastEntriesQueries')
-const { AuthenticateToken } = require('../validations/logRequests');
+const { AuthenticateToken } = require('../validations/UserTokenAuth');
 
 // * Gemini content Creation variables
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -49,6 +50,8 @@ podcastEntryController.get('/:id',AuthenticateToken, async (req, res) => {
 
 podcastEntryController.post('/', async (req, res) => {
     const { user_id } = req.params;
+    console.log(user_id);
+    
     const entryData = req.body;
     try {
         const newEntry = await createEntry(user_id, entryData);
@@ -88,6 +91,7 @@ podcastEntryController.post('/script',AuthenticateToken, async (req, res) => {
             Format the output as a JSON object with the following structure:
             {
                 "title": "Podcast Title",
+                "description": Brief description of what the topic will be about,
                 "introduction": "Brief introduction to the topic",
                 "mainContent": "Detailed content of the podcast",
                 "conclusion": "Summary and closing remarks"
@@ -124,7 +128,7 @@ podcastEntryController.post('/audio', async (req, res) => {
     
     try {
         // console.log("Incoming request body: ", req.body)
-        console.log("BE-Line 61 TTS prompt: ",googleCloudTTS)
+        console.log("BE-Line 131 TTS prompt: ",googleCloudTTS)
 
 
         if (!googleCloudTTS || typeof googleCloudTTS !== 'string') {
@@ -145,7 +149,7 @@ podcastEntryController.post('/audio', async (req, res) => {
 
         const [response, metadata] = await ttsClient.synthesizeSpeech(request);
 
-        console.log(response);
+        console.log("Line 152 - Audio Conversion: ",response);
         //   console.dir(metadata, { depth: null }); <-- can be used to log the whole structure of the nested objects. Debugging purposes.
         console.log(metadata, {default: null});
         console.log("Audio content length:", response.audioContent.length);

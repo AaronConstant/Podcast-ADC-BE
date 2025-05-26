@@ -8,7 +8,7 @@ const {
     updateUser, 
     deleteUser 
 } = require('../queries/usersQueries');
-const {AuthenticateToken} = require('../validations/logRequests')
+const {AuthenticateToken} = require('../validations/UserTokenAuth')
 const jwt = require('jsonwebtoken');
 
 // validations
@@ -19,7 +19,7 @@ userController.use(express.json());
 userController.use(cors());
 
 // routes
-// ! Testing purposes remove later
+// ! This Route for testing purposes remove later //
 userController.get('/',async (req, res) => {
     try {
         const allCurrentUsers = await getAllUsers()
@@ -34,6 +34,7 @@ userController.get('/',async (req, res) => {
     }
     
 })
+// ! Remove above route later! //
 
 userController.get('/:id', AuthenticateToken, async (req, res) => {
     const { id } = req.params;

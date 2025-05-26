@@ -2,12 +2,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
-const logInRequest =  require('./validations/logRequests.js');
+const logInRequest =  require('./validations/UserTokenAuth.js');
 const loginController = require('./controller/loginController.js')
-const userDashBoard = require('./controller/userDashboardController.js')
 const podcastEntryController = require('./controller/podcastEntryController.js');
 const userController = require('./controller/usersController.js');
-const { AuthenticateToken }= require('./validations/logRequests.js')
+const { AuthenticateToken }= require('./validations/UserTokenAuth.js')
 
 app.use(express.json());
 app.use(cors());
