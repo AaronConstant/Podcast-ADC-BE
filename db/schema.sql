@@ -1,11 +1,11 @@
-DROP DATABASE IF EXISTS chit_chat_app;
-CREATE DATABASE chit_chat_app;
+-- DROP DATABASE IF EXISTS chit_chat_app;
+-- CREATE DATABASE chit_chat_app;
 
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 
-\c chit_chat_app;
+-- \c chit_chat_app;
 
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

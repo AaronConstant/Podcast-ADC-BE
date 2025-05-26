@@ -2,7 +2,7 @@ const app = require('./app');
 
 require('dotenv').config();
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4040
 
 app.listen(PORT, (err) => {
     if (err) {
@@ -10,6 +10,6 @@ app.listen(PORT, (err) => {
         process.exit(1);
     }
     console.log(`Server is running on port ${PORT}`);
-    console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
+    // console.log("GOOGLE_APPLICATION_CREDENTIALS:", process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 });
