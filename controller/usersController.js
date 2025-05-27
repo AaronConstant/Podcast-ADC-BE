@@ -57,9 +57,10 @@ userController.get('/:id', AuthenticateToken, async (req, res) => {
 });
 
 userController.post('/', async (req, res) => {
-    console.log(req.body)
     try {
         const addingUser = await createUser(req.body);
+        console.log(req.body)
+        console.log("Line 63 User Info: ",addingUser)
         
         const token = jwt.sign(
           { id: addingUser.id },
