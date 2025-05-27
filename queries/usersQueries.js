@@ -5,6 +5,7 @@ const saltRounds = 10
 const getAllUsers = async () => {
     try {
         const allUsers = await db.any("SELECT * FROM users");
+        console.log(allUsers)
         return allUsers;
     }catch (error) {
         return `Error fetching all users: ${error}`;

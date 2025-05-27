@@ -1,6 +1,6 @@
-require('dotenv').config()
 const express = require('express'); 
 const loginController = express.Router();
+require('dotenv').config()
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -30,8 +30,8 @@ loginController.post('/', async (req, res) => {
         }
         
         const lilSecret = process.env.JWT_SECRET
-        // { expiresIn: '30m' }
-        const jwtAccessToken = jwt.sign({ id: getUser.id }, lilSecret);
+        
+        const jwtAccessToken = jwt.sign({ id: getUser.id }, lilSecret,{ expiresIn: '30m' });
         console.log(`Line 33 loginC - Token for User ${getUser.first_name}: ${jwtAccessToken}`)
         res.status(200).json({
           message: "Login successful",
