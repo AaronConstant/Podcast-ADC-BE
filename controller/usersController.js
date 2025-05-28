@@ -74,7 +74,8 @@ userController.post('/', async (req, res) => {
           user: {
             id: addingUser.id,
             username: addingUser.username,
-            email: addingUser.email,
+            firstName: addingUser.first_name,
+            lastName: addingUser.last_name
           }
         });
         
