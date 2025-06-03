@@ -84,10 +84,14 @@ podcastEntryController.delete('/:id', async (req, res) => {
 
 podcastEntryController.post('/script',AuthenticateToken, async (req, res) => {
     try {
-        const prompt = req.body.podcastentry;
-        
+        const {podcastentry, mood} = req.body;
+        // ! Debugging console logs
+        // console.log("Line 97--Podcast Entry Data:", req.body);
+        // console.log("Line 97--Prompt:", podcastentry);
+        // console.log("Line 98--Mood:", mood);
         const structuredPrompt = `
-            ${prompt}
+            ${podcastentry}
+            The mood of the podcast is "${mood}".
             Format the output as a JSON object with the following structure:
             {
                 "title": "Podcast Title",
